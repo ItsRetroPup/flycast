@@ -16,7 +16,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.flycast.emulator"
+        applicationId = "com.flycast.emulator.dualscreen"
         minSdk = 21
         targetSdk = 37
         versionCode = 8
@@ -40,10 +40,11 @@ android {
             storeFile = file("../debug.keystore")
         }
         create("release") {
-            storeFile = file("../playstore.jks")
-            storePassword = System.getenv("ANDROID_KEYSTORE_PASSWORD")
-            keyAlias = "uploadkey"
-            keyPassword = System.getenv("ANDROID_KEYSTORE_PASSWORD")
+            // Dual Screen fork: signed with the fork's own key, never committed
+            storeFile = System.getenv("DUALSCREEN_KEYSTORE_FILE")?.let { file(it) }
+            storePassword = System.getenv("DUALSCREEN_KEYSTORE_PASSWORD")
+            keyAlias = "dualscreen"
+            keyPassword = System.getenv("DUALSCREEN_KEYSTORE_PASSWORD")
         }
     }
 
